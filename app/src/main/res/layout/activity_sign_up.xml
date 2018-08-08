@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorPrimary"
+        android:orientation="vertical"
+        android:padding="15dp"
+        tools:context="com.example.moiz_ihs.bucksapp.SignUpActivity">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:src="@drawable/logo_buck2"
+            />
+
+        <LinearLayout
+            android:id="@+id/layout_success"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:orientation="vertical"
+            android:visibility="gone"
+            >
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="27sp"
+                android:textColor="@color/colorPrimaryDark"
+                android:gravity="center"
+
+                android:drawableTop="@drawable/success"
+                android:text="Success!"
+                />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textSize="17sp"
+                android:gravity="center"
+                android:text="Thanks for subscribing \n We are sending you a confirmation email"
+                />
+        </LinearLayout>
+            <LinearLayout
+                android:id="@+id/content_signup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+
+                android:orientation="vertical"
+
+                >
+
+
+
+                    <EditText
+                        android:id="@+id/imei"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:enabled="false"
+                        android:padding="10dp"
+
+                        android:drawableLeft="@drawable/imei"
+                        android:drawablePadding="20dp"
+                        android:background="@drawable/text_background"
+                        android:hint="IMEI"
+                        />
+
+
+
+
+                    <EditText
+                        android:id="@+id/username"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Username"
+                        android:padding="10dp"
+                        android:layout_marginTop="10dp"
+                        android:drawableLeft="@drawable/user"
+                        android:drawablePadding="20dp"
+                        android:background="@drawable/text_background"
+                        android:inputType="textEmailAddress"
+                         />
+
+
+
+
+                    <EditText
+                        android:id="@+id/email"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Email"
+                        android:padding="10dp"
+
+                        android:layout_marginTop="10dp"
+                        android:drawableLeft="@drawable/email"
+                        android:drawablePadding="20dp"
+                        android:background="@drawable/text_background"
+                        android:inputType="textEmailAddress"
+                        />
+
+
+
+
+                    <EditText
+                        android:id="@+id/password"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Password"
+                        android:padding="10dp"
+                        android:layout_marginTop="10dp"
+                        android:drawableLeft="@drawable/lock"
+                        android:drawablePadding="20dp"
+                        android:background="@drawable/text_background"
+                        android:inputType="textPassword"
+                       />
+
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/content_questions"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="15dp"
+                android:visibility="gone"
+                >
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:drawableLeft="@drawable/file"
+                    android:text="Choose Security Question(1)"
+                    android:drawablePadding="10dp"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="16sp" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="70dp"
+                    android:background="@drawable/spinner_bg"
+                    >
+                <Spinner
+                    android:id="@+id/sp_questions_first"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    style="@style/Widget.AppCompat.DropDownItem.Spinner"
+
+                    />
+
+                </RelativeLayout>
+
+
+                    <EditText
+                        android:id="@+id/answer_first"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Write your first answer"
+                        android:padding="16dp"
+                        android:layout_marginTop="10dp"
+
+
+                        android:background="@drawable/text_background"
+                        android:inputType="textPersonName" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:drawablePadding="10dp"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="16sp"
+                    android:layout_marginTop="16dp"
+                    android:drawableLeft="@drawable/file"
+                    android:text="Choose Security Question(2)"
+                    />
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="70dp"
+
+                    android:background="@drawable/spinner_bg"
+                    >
+                <Spinner
+                    android:id="@+id/sp_questions_second"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    style="@style/Widget.AppCompat.DropDownItem.Spinner"
+                    />
+
+                </RelativeLayout>
+
+
+                    <EditText
+                        android:id="@+id/answer_second"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Write your second answer"
+                        android:padding="16dp"
+
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/text_background"
+
+                        android:inputType="textPersonName" />
+
+
+            </LinearLayout>
+
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/submit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/curved_button"
+                android:text="Next"
+                android:textColor="@color/colorPrimary" />
+        </LinearLayout>
+
+    </LinearLayout>
+</layout>
