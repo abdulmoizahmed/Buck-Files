@@ -18,6 +18,7 @@ public class DevicePreference {
 
         public static final String IMEI = "imei";
         public static final String FAILED_FILES = "failedfiles";
+        public static final String IS_RUNNING = "running";
     }
 
     private DevicePreference(Context context) {

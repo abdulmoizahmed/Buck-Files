@@ -1,6 +1,7 @@
 package com.example.moiz_ihs.bucksapp;
 
 import android.Manifest;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.databinding.DataBindingUtil;
@@ -23,6 +24,7 @@ import com.example.moiz_ihs.bucksapp.service.BackUpService;
 import com.example.moiz_ihs.bucksapp.service.SyncJob;
 import com.example.moiz_ihs.bucksapp.utils.CommonUtils;
 import com.example.moiz_ihs.bucksapp.utils.DevicePreference;
+import com.example.moiz_ihs.bucksapp.utils.NetworkProgressDialog;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,10 +45,12 @@ public class SignUpActivity extends AppCompatActivity {
     }
 
     private void initAdapter() {
+        final NetworkProgressDialog dialog = new NetworkProgressDialog(SignUpActivity.this);
+        dialog.show();
         ApiServices.getAllQuestions(new OnResponseReceiveListener() {
             @Override
             public void onSuccessReceived(Object response) {
-
+                dialog.dismiss();
                 ArrayAdapter adapter = new ArrayAdapter<>(SignUpActivity.this, android.R.layout.simple_list_item_1, ((List<QuestionResponse>) response));
                 binding.spQuestionsFirst.setAdapter(adapter);
                 binding.spQuestionsSecond.setAdapter(adapter);
@@ -56,6 +60,7 @@ public class SignUpActivity extends AppCompatActivity {
 
             @Override
             public void onFailureReceived(String errorMessage) {
+                dialog.dismiss();
                 Toast.makeText(SignUpActivity.this, "You don't have internet connetion please try later", Toast.LENGTH_SHORT).show();
                 SignUpActivity.this.finish();
             }
@@ -118,6 +123,7 @@ public class SignUpActivity extends AppCompatActivity {
 
             } else if (binding.layoutSuccess.getVisibility() == View.VISIBLE) {
                 Toast.makeText(SignUpActivity.this, "Start Backuping", Toast.LENGTH_SHORT).show();
+                DevicePreference.getInstance(SignUpActivity.this).put(DevicePreference.Key.IS_RUNNING,true);
                 SyncJob.startAdvanceJob();
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
                     finishAffinity();
@@ -131,14 +137,11 @@ public class SignUpActivity extends AppCompatActivity {
     }
 
     private boolean validateQuestions() {
-        boolean allValid = false;
+        boolean allValid = true;
         if (binding.spQuestionsFirst.getSelectedItem().toString().equals(binding.spQuestionsSecond.getSelectedItem().toString())) {
             allValid = false;
             Toast.makeText(this, "You can't select same Question for both the answers.", Toast.LENGTH_LONG).show();
-
         }
-
-
         return allValid;
     }
 
@@ -153,9 +156,13 @@ public class SignUpActivity extends AppCompatActivity {
     }
 
     private void postUser() {
+        final NetworkProgressDialog dialog = new NetworkProgressDialog(SignUpActivity.this);
+        dialog.show();
+
         ApiServices.postSignUp(getPayload(), new OnResponseReceiveListener() {
             @Override
             public void onSuccessReceived(Object response) {
+                dialog.dismiss();
                 binding.submit.setText("Continue");
                 binding.layoutSuccess.setVisibility(View.VISIBLE);
                 binding.contentQuestions.setVisibility(View.GONE);
@@ -164,7 +171,7 @@ public class SignUpActivity extends AppCompatActivity {
 
             @Override
             public void onFailureReceived(String errorMessage) {
-
+                dialog.dismiss();
                 Toast.makeText(SignUpActivity.this, errorMessage, Toast.LENGTH_SHORT).show();
             }
         });

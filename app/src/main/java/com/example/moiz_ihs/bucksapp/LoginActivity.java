@@ -1,6 +1,7 @@
 package com.example.moiz_ihs.bucksapp;
 
 import android.Manifest;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.databinding.DataBindingUtil;
@@ -24,6 +25,7 @@ import com.example.moiz_ihs.bucksapp.service.SyncJob;
 import com.example.moiz_ihs.bucksapp.utils.CommonUtils;
 import com.example.moiz_ihs.bucksapp.utils.DevicePreference;
 import com.example.moiz_ihs.bucksapp.utils.FilesFilter;
+import com.example.moiz_ihs.bucksapp.utils.NetworkProgressDialog;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -61,18 +63,22 @@ public class LoginActivity extends AppCompatActivity {
         @Override
         public void onClick(View view) {
             if (isValidForm()) {
+                final NetworkProgressDialog dialog = new NetworkProgressDialog(LoginActivity.this);
+                dialog.show();
                 ApiServices.postSignIn(getPayload(), new OnResponseReceiveListener() {
                     @Override
                     public void onSuccessReceived(Object response) {
-
+                        dialog.dismiss();
+                        DevicePreference.getInstance(LoginActivity.this).put(DevicePreference.Key.IS_RUNNING,true);
                         SyncJob.startAdvanceJob();
-                        Toast.makeText(LoginActivity.this, ((String) response), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(LoginActivity.this,"Start Backuping your Data", Toast.LENGTH_SHORT).show();
                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
                             finishAffinity();}
                     }
 
                     @Override
                     public void onFailureReceived(String errorMessage) {
+                        dialog.dismiss();
                         Toast.makeText(LoginActivity.this, errorMessage, Toast.LENGTH_SHORT).show();
                     }
                 });
