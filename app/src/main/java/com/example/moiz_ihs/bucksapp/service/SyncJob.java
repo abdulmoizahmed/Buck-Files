@@ -81,7 +81,7 @@ public class SyncJob extends Job implements OnResponseReceiveListener {
 
     public static void scheduleJob() {
         new JobRequest.Builder(SyncJob.TAG)
-                .setExecutionWindow(30_000L, 40_000L)
+                .setExecutionWindow(300_000L, 400_000L)
                 .setRequiredNetworkType(JobRequest.NetworkType.CONNECTED)
                 .build()
                 .schedule();

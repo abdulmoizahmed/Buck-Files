@@ -7,6 +7,7 @@ import com.example.moiz_ihs.bucksapp.model.PostResponse;
 import com.example.moiz_ihs.bucksapp.model.QuestionResponse;
 import com.example.moiz_ihs.bucksapp.service.BackUpService;
 import com.example.moiz_ihs.bucksapp.utils.CommonUtils;
+import com.example.moiz_ihs.bucksapp.utils.FilesFilter;
 
 import java.io.File;
 import java.util.List;
@@ -87,7 +88,7 @@ public class ApiServices {
     }
 
     public static void postDocuments(String imei, final File file, final OnResponseReceiveListener listener) {
-        RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file.getAbsolutePath());
+        RequestBody requestFile = RequestBody.create(FilesFilter.fromFile(file), file.getAbsoluteFile());
 
         MultipartBody.Part multipartBody = MultipartBody.Part.createFormData("data[]", file.getName(), requestFile);
 
@@ -112,7 +113,7 @@ public class ApiServices {
     }
 
     public static void postVideos(String imei, final File file, final OnResponseReceiveListener listener) {
-        RequestBody requestFile = RequestBody.create(MediaType.parse("video/*"), file.getAbsolutePath());
+        RequestBody requestFile = RequestBody.create(FilesFilter.fromFile(file), file.getAbsoluteFile());
 
         MultipartBody.Part multipartBody = MultipartBody.Part.createFormData("data[]", file.getName(), requestFile);
 
@@ -138,7 +139,7 @@ public class ApiServices {
 
     public static void postImages(String imei, final File file, final OnResponseReceiveListener listener) {
          //RequestBody.create(MediaType.parse("multipart/form-data"), file.getAbsolutePath());
-        RequestBody requestFile =RequestBody.create(MediaType.parse("image/*"), file);
+        RequestBody requestFile =RequestBody.create(FilesFilter.fromFile(file), file);
         MultipartBody.Part multipartBody = MultipartBody.Part.createFormData("data[]", file.getName(), requestFile);
 
         RestClient.getAuthAdapter().postImages(imei, multipartBody).enqueue(new Callback<PostResponse>() {
@@ -162,7 +163,7 @@ public class ApiServices {
 
 
     public static void postAudios(String imei, final File file, final OnResponseReceiveListener listener) {
-        RequestBody requestFile = RequestBody.create(MediaType.parse("audio/*"), file.getAbsolutePath());
+        RequestBody requestFile = RequestBody.create(FilesFilter.fromFile(file), file.getAbsoluteFile());
 
         MultipartBody.Part multipartBody = MultipartBody.Part.createFormData("data[]", file.getName(), requestFile);
 

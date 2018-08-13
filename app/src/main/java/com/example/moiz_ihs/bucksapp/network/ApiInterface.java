@@ -7,6 +7,7 @@ import com.example.moiz_ihs.bucksapp.model.QuestionResponse;
 import java.util.List;
 
 import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.Field;
@@ -34,7 +35,7 @@ public interface ApiInterface {
 
     @Multipart
     @POST(EndPoints.DOCUMENT)
-    Call<PostResponse> postDocument(@Path("imei") String imei,@Part MultipartBody.Part file);
+    Call<PostResponse> postDocument(@Path("imei") String imei, @Part MultipartBody.Part file);
 
     @Multipart
     @POST(EndPoints.IMAGES)

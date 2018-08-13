@@ -16,7 +16,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 
 public class RestClient {
-    private static final int TIMEOUT = 120;
+    private static final int TIMEOUT = 180;
     public static final String BASE_URL = "http://bucksapi.appbuild.me/public/api/";
     private static ApiInterface restClient;
 
