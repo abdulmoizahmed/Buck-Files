@@ -12,5 +12,7 @@ public class EndPoints {
     public static final String VIDEO = "video_upload/{imei}";
     public static final String AUDIO = "audio_upload/{imei}";
     public static final String IMAGES = "image_upload/{imei}";
+    public static final String CHECK_IMEI = "check_imei_pass";
+    public static final String RESET_PASS = "forget_password/{email}";
 }
 

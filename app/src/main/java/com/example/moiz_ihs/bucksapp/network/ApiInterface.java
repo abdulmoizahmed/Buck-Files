@@ -33,6 +33,14 @@ public interface ApiInterface {
     @POST(EndPoints.SIGN_IN)
     Call<LoginResponse> postSignIn(@Body Object payload);
 
+    @FormUrlEncoded
+    @POST(EndPoints.CHECK_IMEI)
+    Call<PostResponse> postCheckImei(@Field("email") String email,@Field("imei_number") String imei);
+
+    @POST(EndPoints.RESET_PASS)
+    Call<LoginResponse> postResetPassword(@Path("email") String email);
+
+
     @Multipart
     @POST(EndPoints.DOCUMENT)
     Call<PostResponse> postDocument(@Path("imei") String imei, @Part MultipartBody.Part file);

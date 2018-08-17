@@ -62,6 +62,16 @@
             android:background="@drawable/text_background"
             />
 
+    <TextView
+        android:id="@+id/forgetPassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Forget Password?"
+        android:textColor="@color/colorPrimaryDark"
+        android:gravity="right"
+        android:padding="10dp"
+        />
+
 
     <LinearLayout
         android:layout_width="match_parent"

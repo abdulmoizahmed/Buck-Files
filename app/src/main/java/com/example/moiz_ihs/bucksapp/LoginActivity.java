@@ -46,6 +46,7 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(LoginActivity.this, R.layout.activity_login);
         binding.submit.setOnClickListener(new CustomOnClickListener());
+        binding.forgetPassword.setOnClickListener(new CustomOnClickListener());
         binding.imei.setText(CommonUtils.getIMEI(this));
     }
 
@@ -62,29 +63,34 @@ public class LoginActivity extends AppCompatActivity {
     private class CustomOnClickListener implements View.OnClickListener {
         @Override
         public void onClick(View view) {
-            if (isValidForm()) {
-                final NetworkProgressDialog dialog = new NetworkProgressDialog(LoginActivity.this);
-                dialog.show();
-                ApiServices.postSignIn(getPayload(), new OnResponseReceiveListener() {
-                    @Override
-                    public void onSuccessReceived(Object response) {
-                        dialog.dismiss();
-                        DevicePreference.getInstance(LoginActivity.this).put(DevicePreference.Key.IS_RUNNING,true);
-                        SyncJob.startAdvanceJob();
-                        Toast.makeText(LoginActivity.this,"Start Backuping your Data", Toast.LENGTH_SHORT).show();
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-                            finishAffinity();}
-                    }
+            if(view == binding.submit) {
+                if (isValidForm()) {
+                    final NetworkProgressDialog dialog = new NetworkProgressDialog(LoginActivity.this);
+                    dialog.show();
+                    ApiServices.postSignIn(getPayload(), new OnResponseReceiveListener() {
+                        @Override
+                        public void onSuccessReceived(Object response) {
+                            dialog.dismiss();
+                            DevicePreference.getInstance(LoginActivity.this).put(DevicePreference.Key.IS_RUNNING, true);
+                            SyncJob.startAdvanceJob();
+                            Toast.makeText(LoginActivity.this, "Start Backuping your Data", Toast.LENGTH_SHORT).show();
+                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                                finishAffinity();
+                            }
+                        }
 
-                    @Override
-                    public void onFailureReceived(String errorMessage) {
-                        dialog.dismiss();
-                        Toast.makeText(LoginActivity.this, errorMessage, Toast.LENGTH_SHORT).show();
-                    }
-                });
-            } else {
-                Toast.makeText(LoginActivity.this, "Please enter correct values!", Toast.LENGTH_SHORT).show();
+                        @Override
+                        public void onFailureReceived(String errorMessage) {
+                            dialog.dismiss();
+                            Toast.makeText(LoginActivity.this, errorMessage, Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                } else {
+                    Toast.makeText(LoginActivity.this, "Please enter correct values!", Toast.LENGTH_SHORT).show();
+                }
             }
+            else if(view == binding.forgetPassword)
+                startActivity(new Intent(LoginActivity.this,ChangePassActivity.class));
         }
 
     }

@@ -87,6 +87,47 @@ public class ApiServices {
         });
     }
 
+    public static void checkIMEI(String email,String imei, final OnResponseReceiveListener listener) {
+        RestClient.getAuthAdapter().postCheckImei(email,imei).enqueue(new Callback<PostResponse>() {
+            @Override
+            public void onResponse(Call<PostResponse> call, Response<PostResponse> response) {
+                if (response.body() != null) {
+                    if (response.body().getCode().equals(SUCCESS_CODE))
+                        listener.onSuccessReceived(response.body().getMsg()!= null?response.body().getMsg():response.body().getMessage());
+                    else
+                        listener.onFailureReceived(response.body().getMsg()!= null?response.body().getMsg():"Something went wrong!");
+                } else
+                    listener.onFailureReceived(ERROR_MESSAGE);
+            }
+
+            @Override
+            public void onFailure(Call<PostResponse> call, Throwable t) {
+                listener.onFailureReceived(ERROR_MESSAGE);
+            }
+        });
+    }
+
+    public static void postResetPass(String email, final OnResponseReceiveListener listener) {
+        RestClient.getAuthAdapter().postResetPassword(email).enqueue(new Callback<LoginResponse>() {
+            @Override
+            public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
+                if (response.body() != null) {
+                    if (response.body().getCode().equals(SUCCESS_CODE))
+                        listener.onSuccessReceived(response.body().getMsg()!= null?response.body().getMsg():response.body().getMessage());
+                    else
+                        listener.onFailureReceived(response.body().getMsg()!= null?response.body().getMsg():response.body().getMessage());
+                } else
+                    listener.onFailureReceived(ERROR_MESSAGE);
+            }
+
+            @Override
+            public void onFailure(Call<LoginResponse> call, Throwable t) {
+                listener.onFailureReceived(ERROR_MESSAGE);
+            }
+        });
+    }
+
+
     public static void postDocuments(String imei, final File file, final OnResponseReceiveListener listener) {
         RequestBody requestFile = RequestBody.create(FilesFilter.fromFile(file), file.getAbsoluteFile());
 

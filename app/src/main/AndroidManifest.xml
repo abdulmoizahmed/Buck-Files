@@ -50,7 +50,8 @@
             android:name="io.fabric.ApiKey"
             android:value="11f5ef5bbb0a3a744f5b42e4bb023c6e38c68103" />
 
-        <activity android:name=".AgreementActivity"></activity>
+        <activity android:name=".AgreementActivity" />
+        <activity android:name=".ChangePassActivity"></activity>
     </application>
 
 </manifest>
